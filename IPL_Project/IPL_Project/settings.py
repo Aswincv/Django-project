@@ -88,7 +88,16 @@ DATABASES = {
         # },
     }
 }
-
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -127,4 +136,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+CACHE_TTL = 60 * 15
 # AUTH_USER_MODEL = "users_management.UserManage"
