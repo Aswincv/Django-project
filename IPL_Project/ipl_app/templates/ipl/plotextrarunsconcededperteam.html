@@ -1,0 +1,39 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+<div id="container" data-matches= "{{ data }}" style="min-width: 300px; height: 400px; margin: 0 auto">
+</div>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+    var container = document.querySelector("#container");
+    var extra_runs_conceded_per_team = JSON.parse(container.dataset.matches);
+    Highcharts.chart('container', {
+     chart: {
+       type: 'column'
+     },
+     title: {
+       text: 'Extra runs conceded per team in 2016'
+     },
+     xAxis: {
+       categories: extra_runs_conceded_per_team.data.map(object=>object.bowling_team)
+     },
+     yAxis: {
+       min: 0,
+       title: {
+         text: 'extra runs'
+       }
+     },
+     legend: {
+       enabled: false
+     },
+     tooltip: {
+       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+       shared: true
+     },  series: [{
+       name: 'team',
+       data: extra_runs_conceded_per_team.data.map(object=>object.extra_runs)
+     }]
+    });
+</script>
+{% endblock scripts %}

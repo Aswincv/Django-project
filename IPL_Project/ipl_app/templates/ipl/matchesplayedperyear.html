@@ -1,0 +1,22 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+        <div class="container">
+            <h2>Matches Played Per Year</h2>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Season</th>
+                    <th>No.of Matches Played</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for match_reader in matches_played_per_year%}
+                  <tr>
+                    <td>{{match_reader.season}}</td>
+                    <td>{{match_reader.no_of_matches}}</td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+            </table>
+        </div>
+{% endblock content %}

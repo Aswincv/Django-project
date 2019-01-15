@@ -1,0 +1,85 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+<div id="container" data-match= "{{ data }}" style="min-width: 300px; height: 400px; margin: 0 auto">
+</div>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+     var con = document.querySelector("#container");
+     var matches =JSON.parse(con.dataset.match);
+     console.log(matches);
+     matches = matches['data'];
+     console.log(matches);
+     years = [];
+   years_data_init = [];
+   for(let year=2008; year<=2017;year++){
+       years.push(year);
+       years_data_init.push('');
+   }
+   teams = [];
+   let series_to_pass = [];
+   matches.forEach(element => {
+       team_index = teams.indexOf(element['winner']);
+       year_index = years.indexOf(element['season']);
+       if(team_index != -1){
+           series_to_pass[team_index]['data'][year_index] = element['total'];
+       }else{
+           series_to_pass.push({name: element['winner'], data: years_data_init.slice(0)});
+           teams.push(element['winner']);
+           team_index = teams.indexOf(element['winner']);
+           series_to_pass[team_index]['data'][year_index] = element['total'];
+       }
+   });
+   console.log(series_to_pass)
+   Highcharts.chart('container', {
+       chart: {
+           type: 'column'
+       },
+       title: {
+           text: 'Stacked column chart'
+       },
+       xAxis: {
+           categories: years
+       },
+       yAxis: {
+           min: 0,
+           title: {
+               text: 'Total fruit consumption'
+           },
+           stackLabels: {
+               enabled: true,
+               style: {
+                   fontWeight: 'bold',
+                   color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+               }
+           }
+       },
+       legend: {
+           align: 'center',
+           x: 0,
+           verticalAlign: 'bottom',
+           y: 15,
+           floating: false,
+           backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+           borderColor: '#CCC',
+           borderWidth: 1,
+           shadow: false
+       },
+       tooltip: {
+           headerFormat: '<b>{point.x}</b><br/>',
+           pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+       },
+       plotOptions: {
+           column: {
+               stacking: 'normal',
+               dataLabels: {
+                   enabled: true,
+                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+               }
+           }
+       },
+       series: series_to_pass
+   });
+ </script>
+{% endblock scripts %}

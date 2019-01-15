@@ -1,0 +1,40 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+<div id="container" data-matches= "{{ data }}" style="min-width: 300px; height: 400px; margin: 0 auto">
+</div>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+    var container = document.querySelector("#container");
+    var matches_played_per_year = JSON.parse(container.dataset.matches);
+    console.log(matches_played_per_year);
+    Highcharts.chart('container', {
+     chart: {
+       type: 'column'
+     },
+     title: {
+       text: 'No of matches played per year'
+     },
+     xAxis: {
+       categories: matches_played_per_year.data.map(object=>object.season)
+     },
+     yAxis: {
+       min: 0,
+       title: {
+         text: 'no.of matches'
+       }
+     },
+     legend: {
+       enabled: false
+     },
+     tooltip: {
+       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+       shared: true
+     },  series: [{
+       name: 'year',
+       data: matches_played_per_year.data.map(object=>object.no_of_matches)
+     }]
+    });
+</script>
+{% endblock scripts %}

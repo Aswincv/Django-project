@@ -1,0 +1,18 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+    <h1>please select</h1>
+    <section>
+      <ul>
+         <li><a href="{% url 'ipl-matchesplayedperyear' %}">number of matches played per year</a></li>
+         <li><a href="{% url 'ipl-matcheswonofallteamsoveralltheyears' %}">matches won by all the team on all oer the year</a></li>
+         <li><a href="{% url 'ipl-extrarunsconcededperteam' %}">extra runs conceded per team over the year 2016</a></li>
+         <li><a href="{% url 'ipl-topeconomicalbowlers'%}">top economical bowler</a></li>
+         <li><a href="{% url 'ipl-toprunsoveralltheyear'%}">top runs over all the years in IPl</a></li>
+         <li><a href="{% url 'ipl-plotmatchesplayedperyear' %}">plot number of matches played per year</a></li>
+         <li><a href="{% url 'ipl-plotmatcheswonofallteamsoveralltheyears' %}">plot matches won by all the team on all oer the year</a></li>
+         <li><a href="{% url 'ipl-plotextrarunsconcededperteam' %}">plot extra runs conceded per team over the year 2016</a></li>
+         <li><a href="{% url 'ipl-plottopeconomicalbowler'%}">plot top economical bowler</a></li>
+         <li><a href="{% url 'ipl-plottoprunsoveralltheyear'%}">plot top runs over all the years</a></li>
+      </ul>
+    </section>
+{% endblock content %}

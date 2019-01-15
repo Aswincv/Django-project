@@ -1,0 +1,39 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+<div id="container" data-matches= "{{ data }}" style="min-width: 300px; height: 400px; margin: 0 auto">
+</div>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+    var container = document.querySelector("#container");
+    var top_runs_over_all_the_years = JSON.parse(container.dataset.matches);
+    Highcharts.chart('container', {
+     chart: {
+       type: 'column'
+     },
+     title: {
+       text: 'Top runs over all the years'
+     },
+     xAxis: {
+       categories: top_runs_over_all_the_years.data.map(object=>object.batsman)
+     },
+     yAxis: {
+       min: 0,
+       title: {
+         text: 'total runs scored in a purticular year'
+       }
+     },
+     legend: {
+       enabled: false
+     },
+     tooltip: {
+       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+       shared: true
+     },  series: [{
+       name: 'batsman',
+       data: top_runs_over_all_the_years.data.map(object=>object.runs)
+     }]
+    });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,22 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+        <div class="container">
+            <h2>Top rus over all the years</h2>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Bowler</th>
+                    <th>Economy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for economy_reader in top_economical_bowlers_2015 %}
+                  <tr>
+                    <td>{{ economy_reader.bowler}}</td>
+                    <td>{{ economy_reader.ecconomy }}</td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+            </table>
+        </div>
+{% endblock content %}

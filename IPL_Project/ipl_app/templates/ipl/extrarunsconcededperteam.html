@@ -1,0 +1,22 @@
+{% extends "ipl/base.html" %}
+{% block content %}
+        <div class="container">
+            <h2>Extra Runs Conceded Per Team</h2>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Team</th>
+                    <th>Extra runs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for extraruns_reader in extra_runs_conceded_per_team_2016 %}
+                  <tr>
+                    <td>{{ extraruns_reader.bowling_team }}</td>
+                    <td>{{ extraruns_reader.extra_runs }}</td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+            </table>
+        </div>
+{% endblock content %}
